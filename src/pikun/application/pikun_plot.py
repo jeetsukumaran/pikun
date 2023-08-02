@@ -193,10 +193,13 @@ class Plotter(utility.RuntimeClient):
             df=df,
             plot_format=plot_format
         )
-        self.plot_support_vs_distance(
-            df=df,
-            plot_format=plot_format,
-        )
+        if "ptn1_support" in df.columns:
+            self.plot_support_vs_distance(
+                df=df,
+                plot_format=plot_format,
+            )
+        else:
+            self.logger.log_info("Skipping support plot: Support values not found")
 
     def plot_support_vs_distance(
         self,
