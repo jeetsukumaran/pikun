@@ -47,6 +47,7 @@ from scipy.cluster import hierarchy
 from matplotlib.colors import LogNorm, Normalize
 from scipy.interpolate import griddata
 from scipy.spatial import ConvexHull, Delaunay
+from matplotlib.path import Path
 
 import yakherd
 from pikun import partitionmodel
@@ -73,6 +74,50 @@ def mirror_dataframe(df, col1, col2, col3):
     # Append df_mirror to the relevant columns of df
     df_final = pd.concat([df_1, df_2], ignore_index=True)
     return df_final
+
+def binned_heatmap_plot(
+    X,
+    Y,
+    Z,
+    num_bins=50,
+    xscale='linear',
+    yscale='linear',
+    colormap='coolwarm',
+    zscale='linear'
+):
+    from matplotlib import cm
+    from matplotlib.colors import LogNorm
+    from scipy.stats import binned_statistic_2d
+
+    # Check if the z scale is logarithmic, and if so, replace any zero values with a very small positive number
+    if zscale == 'log':
+        Z = Z.clip(lower=1e-10)
+
+    # Compute 2D histogram using binned_statistic_2d
+    stat, x_edge, y_edge, binnumber = binned_statistic_2d(X, Y, Z, statistic='mean', bins=num_bins)
+
+    # Replace nan values in stat with a very small positive number
+    stat = np.nan_to_num(stat, nan=1e-10)
+
+    plt.figure(figsize=(10, 8))
+
+    cmap = cm.get_cmap(colormap)
+    norm = LogNorm(vmin=stat.min(), vmax=stat.max()) if zscale == 'log' else plt.Normalize(stat.min(), stat.max())
+
+    plt.imshow(stat.T, extent=(X.min(), X.max(), Y.min(), Y.max()), origin='lower', cmap=cmap, norm=norm, aspect='auto')
+
+    plt.xscale(xscale)
+    plt.yscale(yscale)
+
+    plt.xlim([X.min(), X.max()])
+    plt.ylim([Y.min(), Y.max()])
+
+    plt.xlabel(X.name, fontsize=12)
+    plt.ylabel(Y.name, fontsize=12)
+
+    m = cm.ScalarMappable(cmap=cmap, norm=norm)
+    m.set_array(stat)  # Pass the binned statistics to set_array
+    plt.colorbar(m, shrink=0.5, aspect=5)
 
 def contour_plot(
     X,
@@ -167,7 +212,8 @@ class Plotter(utility.RuntimeClient):
         x = c_df[pf1_key]
         y = c_df[pf2_key]
         z = c_df[dist_key]
-        contour_plot(x, y, z, xscale="log", yscale="log")
+        # contour_plot(x, y, z, xscale="log", yscale="log")
+        binned_heatmap_plot(x, y, z, xscale="log", yscale="log")
         store = self.runtime_context.ensure_store(
             key="support",
             name_parts=["vi_distance_vs_support"],
