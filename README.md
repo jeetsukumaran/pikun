@@ -26,10 +26,15 @@ or
 $ python3 -m pip install --user --upgrade git+git://github.com/jeetsukumaran/pikun.git
 ```
 
+## Applications
 
-## Input Formats
+### Analysis
 
-`pikun` currently supports the following data formats:
+``pikun-analyze`` is a command-line program that analyzes a collection of partition definitions.
+
+#### Input Formats
+
+``pikun-analyze`` takes as its input a collection of partitions specified in one of the following data formats:
 
 -   A simple list of of lists in JSON format.
     For e.g., given four populations: ``pop1``, ``pop2``, ``pop3``, and ``pop4``:
@@ -54,13 +59,88 @@ $ python3 -m pip install --user --upgrade git+git://github.com/jeetsukumaran/pik
     ]
     ```
 
+    This can be explicitly specified by passing the argument "json-list" to the ``-f`` or ``--format`` option:
+
+    ```
+    $ pikun-analyze -f json-list partitions.json
+    $ pikun-analyze --format json-list partitions.json
+    ```
+
 -   [DELINEATE](https://github.com/jsukumaran/delineate)
+
+    ```
+    $ pikun-analyze -f delineate delineate-results.json
+    $ pikun-analyze --format delineate delineate-results.json
+    ```
 
 - SPART-XML
 
-## Applications
+    ```
+    $ pikun-analyze -f spart-xml data.xml
+    $ pikun-analyze --format spart-xml data.xml
+    ```
 
-## Workflow
+#### Analysis Options
+
+-   The output file names and paths can be specified by using the ``-o``/``--output-title`` and ``-O``/``--output-directory``
+
+    ```
+    $ pikun-analyze \
+        -f delineate \
+        -o project42 \
+        -O analysis_dir \
+        delineate-results.json
+    $ pikun-analyze \
+        --format delineate \
+        --output-title project42 \
+        --output-directory analysis_dir \
+        delineate-results.json
+    ```
+
+-   The number of partitions can are read from the input set can be restricted to the first $n$ partitions using the ``--limit-partitions`` option:
+
+    ```
+    $ pikun-analyze \
+        --format delineate \
+        --output-title project42 \
+        --output-directory analysis_dir \
+        --limit 10 \
+        delineate-results.json
+    ```
+
+    This is option is particularly useful when the number of partitions in the input is large and/or most of the partitions in the input set may not be of interest.
+    For e.g., a typical [DELINEATE](https://github.com/jsukumaran/delineate) analysis may generate hundreds if not thousands of partitions, and most of these are low-probability ones of not much practical interest.
+    Using the ``--limit`` flag will focus on just the subset of interest, which will help with computation time and resources.
+
+#### Output
+
+``pikun-analyze`` will generate two tab-delimited (``.tsv``) files (named and located based on the ``-o``/``--output-title`` and ``-O``/``--output-directory`` options):
+
+- ``output-directory/output-title-profiles.tsv``
+- ``output-directory/output-title-comparisons.tsv``
+
+These files provide univariate and a mix of univariate and bivariate statistics, respectively, for the partitions.
+Both of these files can be directly loaded as a PANDAS data frame for more detailed analysis:
+
+```
+>>> import pandas as pd
+>>> df1 = pd.read_cs(
+...     "output-directory/output-title-comparisons.tsv",
+...     delimiter="\t"
+... )
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

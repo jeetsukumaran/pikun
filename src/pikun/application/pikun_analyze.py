@@ -290,21 +290,21 @@ def main(args=None):
         default=os.curdir,
         help="Directory for output files [default='%(default)s'].",
     )
-    cluster_plot_options = parent_parser.add_argument_group("Cluster Plot Options")
-    cluster_plot_options.add_argument(
-        "--cluster-rows",
-        action=argparse.BooleanOptionalAction,
-        dest="is_cluster_rows",
-        default=False,
-        help="Reorder / do not reorder partition rows to show clusters clearly",
-    )
-    cluster_plot_options.add_argument(
-        "--cluster-cols",
-        action=argparse.BooleanOptionalAction,
-        dest="is_cluster_cols",
-        default=False,
-        help="Reorder / do not reorder partition colums to show clusters clearly",
-    )
+    # cluster_plot_options = parent_parser.add_argument_group("Cluster Plot Options")
+    # cluster_plot_options.add_argument(
+    #     "--cluster-rows",
+    #     action=argparse.BooleanOptionalAction,
+    #     dest="is_cluster_rows",
+    #     default=False,
+    #     help="Reorder / do not reorder partition rows to show clusters clearly",
+    # )
+    # cluster_plot_options.add_argument(
+    #     "--cluster-cols",
+    #     action=argparse.BooleanOptionalAction,
+    #     dest="is_cluster_cols",
+    #     default=False,
+    #     help="Reorder / do not reorder partition colums to show clusters clearly",
+    # )
 
     logger_configuration_parser = yakherd.LoggerConfigurationParser(name="pikun")
     logger_configuration_parser.attach(parent_parser)
