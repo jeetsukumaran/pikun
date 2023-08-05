@@ -104,7 +104,7 @@ $ python3 -m pip install --user --upgrade git+git://github.com/jeetsukumaran/pik
         --format delineate \
         --output-title project42 \
         --output-directory analysis_dir \
-        --limit 10 \
+        --limit-partitions 10 \
         delineate-results.json
     ```
 
