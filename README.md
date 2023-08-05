@@ -32,28 +32,30 @@ $ python3 -m pip install --user --upgrade git+git://github.com/jeetsukumaran/pik
 `pikun` currently supports the following data formats:
 
 -   A simple list of of lists in JSON format.
-    E.g.
+    For e.g., given four populations: ``pop1``, ``pop2``, ``pop3``, and ``pop4``:
 
     ``` json
     [
-    [["a", "b", "c", "d"]],
-    [["a"], ["b", "c", "d"]],
-    [["a", "b"], ["c", "d"]],
-    [["b"], ["a", "c", "d"]],
-    [["a"], ["b"], ["c", "d"]],
-    [["a", "b", "c"], ["d"]],
-    [["b", "c"], ["a", "d"]],
-    [["a"], ["b", "c"], ["d"]],
-    [["a", "c"], ["b", "d"]],
-    [["c"], ["a", "b", "d"]],
-    [["a"], ["c"], ["b", "d"]],
-    [["a", "b"], ["c"], ["d"]],
-    [["b"], ["a", "c"], ["d"]],
-    [["b"], ["c"], ["a", "d"]],
-    [["a"], ["b"], ["c"], ["d"]]
+        [["pop1", "pop2", "pop3", "pop4"]],
+        [["pop1"], ["pop2", "pop3", "pop4"]],
+        [["pop1", "pop2"], ["pop3", "pop4"]],
+        [["pop2"], ["pop1", "pop3", "pop4"]],
+        [["pop1"], ["pop2"], ["pop3", "pop4"]],
+        [["pop1", "pop2", "pop3"], ["pop4"]],
+        [["pop2", "pop3"], ["pop1", "pop4"]],
+        [["pop1"], ["pop2", "pop3"], ["pop4"]],
+        [["pop1", "pop3"], ["pop2", "pop4"]],
+        [["pop3"], ["pop1", "pop2", "pop4"]],
+        [["pop1"], ["pop3"], ["pop2", "pop4"]],
+        [["pop1", "pop2"], ["pop3"], ["pop4"]],
+        [["pop2"], ["pop1", "pop3"], ["pop4"]],
+        [["pop2"], ["pop3"], ["pop1", "pop4"]],
+        [["pop1"], ["pop2"], ["pop3"], ["pop4"]]
     ]
     ```
-- [DELINEATE](https://github.com/jsukumaran/delineate)
+
+-   [DELINEATE](https://github.com/jsukumaran/delineate)
+
 - SPART-XML
 
 ## Applications
