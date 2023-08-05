@@ -38,6 +38,7 @@ setup(
             # "name-of-executable = module.with:function_to_execute"
             "pikun-analyze = pikun.application.pikun_analyze:main",
             "pikun-plot = pikun.application.pikun_plot:main",
+            "pikun-enumerate = pikun.application.pikun_enumerate:main",
         ]
     },
     include_package_data=True,

@@ -246,23 +246,6 @@ class PartitionCoordinator(utility.RuntimeClient):
         df = pd.DataFrame.from_records(comparisons)
         return df
 
-
-def execute_enumerate_partitions(args_d):
-    collection = None
-    if args_d["n_elements"]:
-        collection = list(range(args_d["n_elements"]))
-    if not collection:
-        _log_error("Invalid collection source")
-        sys.exit(1)
-    d = []
-    for ptn in partitionmodel.iterate_partitions(
-        collection=collection,
-    ):
-        d.append(ptn)
-    if args_d["format"] == "json":
-        json.dump(d, sys.stdout)
-
-
 def main(args=None):
     parent_parser = argparse.ArgumentParser()
     parent_parser.set_defaults(func=lambda x: parent_parser.print_help())

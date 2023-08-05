@@ -32,6 +32,13 @@ $ python3 -m pip install --user --upgrade git+git://github.com/jeetsukumaran/pik
 `pikun` currently supports the following data formats:
 
 - A simple list of of lists in JSON format.
+
+E.g.
+
+``` json
+
+```
+
 - [DELINEATE](https://github.com/jsukumaran/delineate)
 - SPART-XML
 
