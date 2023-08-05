@@ -120,6 +120,7 @@ $ python3 -m pip install --user --upgrade git+git://github.com/jeetsukumaran/pik
 - ``output-directory/output-title-comparisons.tsv``
 
 These files provide univariate and a mix of univariate and bivariate statistics, respectively, for the partitions.
+
 Both of these files can be directly loaded as a PANDAS data frame for more detailed analysis:
 
 ```
@@ -130,6 +131,7 @@ Both of these files can be directly loaded as a PANDAS data frame for more detai
 ... )
 ```
 
+The ``-comparisons`` file includes the variance of information distance statistics: ``vi_distance`` and ``vi_normalized_kraskov``.
 
 
 
